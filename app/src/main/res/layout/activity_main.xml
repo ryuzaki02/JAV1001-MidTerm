@@ -17,6 +17,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/conversionTypeGroup"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:paddingLeft="15dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/headingTextView" >
+
+        <RadioButton
+            android:id="@+id/lengthRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Length"/>
+
+        <RadioButton
+            android:id="@+id/tempRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Temperature"/>
+
+        <RadioButton
+            android:id="@+id/weightRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight"/>
+
+        <RadioButton
+            android:id="@+id/volumeRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volume"/>
+
+    </RadioGroup>
+
     <TextView
         android:id="@+id/fromTextView"
         android:layout_width="wrap_content"
@@ -25,7 +60,7 @@
         android:layout_marginTop="30dp"
         android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="@id/fromLinerLayout"
-        app:layout_constraintTop_toBottomOf="@id/headingTextView" />
+        app:layout_constraintTop_toBottomOf="@id/conversionTypeGroup" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/fromLinerLayout"
@@ -39,16 +74,17 @@
 
         <EditText
             android:id="@+id/fromEditTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/edit_text_border"
-            android:layout_weight="3"
+            android:layout_weight="0.5"
+            android:paddingLeft="5dp"
             app:layout_constraintTop_toBottomOf="@id/fromTextView" />
 
         <Spinner
             android:id="@+id/fromSpinner"
-            android:layout_width="wrap_content"
-            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_marginLeft="10dp"
             android:layout_height="match_parent" />
 
@@ -76,16 +112,17 @@
 
         <EditText
             android:id="@+id/toEditTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@drawable/edit_text_border"
-            android:layout_weight="3"
+            android:layout_weight="0.5"
+            android:paddingLeft="5dp"
             app:layout_constraintTop_toBottomOf="@id/fromTextView" />
 
         <Spinner
             android:id="@+id/toSpinner"
-            android:layout_width="wrap_content"
-            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
             android:layout_marginLeft="10dp"
             android:layout_height="match_parent" />
 
