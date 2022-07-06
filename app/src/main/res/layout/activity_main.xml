@@ -80,6 +80,7 @@
             android:background="@drawable/edit_text_border"
             android:layout_weight="0.5"
             android:paddingLeft="5dp"
+            android:inputType="numberDecimal"
             app:layout_constraintTop_toBottomOf="@id/fromTextView" />
 
         <Spinner
