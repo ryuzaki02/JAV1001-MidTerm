@@ -3,6 +3,10 @@ package com.cambrian.jav1001_midterm;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Enum to track the type of Metric. Contains all type conversion type metrics
+ * @author: Aman Thakur
+ */
 public enum MetricType {
     Meter("Meter", 0, ConversionType.Length),
     Centimeter("Centimeter", 1, ConversionType.Length),
@@ -29,17 +33,32 @@ public enum MetricType {
     private int intValue;
     private ConversionType typeValue;
 
+    /**
+     * Constructor initialise cases of enum
+     * @params: toString - Name of Enum, value - Integer value of Enum, type: Type of Conversion
+     * @return: Object of enum
+     */
     private MetricType(String toString, int value, ConversionType type) {
         stringValue = toString;
         intValue = value;
         typeValue = type;
     }
 
+    /**
+     * Convert enum type to it's string value
+     * @params: None
+     * @return: String value of current enum
+     */
     @Override
     public String toString() {
         return stringValue;
     }
 
+    /**
+     * Provides array of string value of enums based on it's conversion type
+     * @params: type - Conversion type to segregate Metric enum cases
+     * @return: String Array contains value of all string value of enums wrt to conversion type
+     */
     public static String[] getAllValues(ConversionType type) {
         List<String> itemList = new ArrayList<String>();
         for (MetricType item:
@@ -53,17 +72,11 @@ public enum MetricType {
         return items;
     }
 
-    public static MetricType getTypeFromString(String value) {
-        switch (value) {
-            case "Meter":
-                return MetricType.Meter;
-            case "Centimeter":
-                return MetricType.Centimeter;
-            default:
-                return MetricType.Millimeter;
-        }
-    }
-
+    /**
+     * Provides array of enums based on it's conversion type
+     * @params: conversionType - Conversion type to segregate Metric enum cases
+     * @return: Metric Type Array contains value of all enums wrt to conversion type
+     */
     public static MetricType[] getMetricValuesFor(ConversionType conversionType) {
         List<MetricType> listValues = new ArrayList<MetricType>();
         for (MetricType type:

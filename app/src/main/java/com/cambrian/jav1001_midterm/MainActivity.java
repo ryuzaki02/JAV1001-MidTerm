@@ -30,7 +30,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setupRadioGroup();
     }
 
-    // Setup Elements
+    /**
+     * Setup Spinner for both 'From' type and 'To' Type
+     * @return: nothing
+     */
     private void setupSpinner() {
         Spinner fromSpinner = (Spinner) findViewById(R.id.fromSpinner);
         fromSpinner.setOnItemSelectedListener(this);
@@ -41,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         updateSpinner(fromSpinner, toSpinner);
     }
 
+    /**
+     * Updates spinner data based on Radio Button selection and changes the data
+     * @params: fromSpinner - Updates data to 'from' spinner, toSpinner - Updates data to 'to' spinner
+     * @return: nothing
+     */
     private void updateSpinner(Spinner fromSpinner, Spinner toSpinner) {
         ArrayAdapter fromArrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, MetricType.getAllValues(conversionType));
         fromArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -52,6 +60,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         toSpinner.setAdapter(toArrayAdapter);
     }
 
+    /**
+     * Setup 'From' text view to track user inputs with listeners
+     * @params: nothing
+     * @return: nothing
+     */
     private void setupFromTextView() {
         EditText fromTextView = (EditText) findViewById(R.id.fromEditTextView);
         fromTextView.addTextChangedListener(new TextWatcher() {
@@ -72,6 +85,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    /**
+     * Sets Radio Group to track user changes with help of listeners. Also updates both spinner data accordingly.
+     * @params: nothing
+     * @return: nothing
+     */
     private void setupRadioGroup() {
         RadioGroup group = (RadioGroup) findViewById(R.id.conversionTypeGroup);
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -105,6 +123,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    /**
+     * Resets both text views that is to say 'from' and 'to' as soon as user changes radio button
+     * @params: nothing
+     * @return: nothing
+     */
     private void resetTextView() {
         EditText fromTextView = (EditText) findViewById(R.id.fromEditTextView);
         EditText toTextView = (EditText) findViewById(R.id.toEditTextView);
@@ -112,6 +135,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         toTextView.setText("");
     }
 
+    /**
+     * Updates 'from' and 'to' type of spinners and calculates value for 'to' text field accordingly
+     * @params: arg0 - Type of view, position - user selection position inside spinner
+     * @return: nothing
+     */
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         if (arg0.getId() == R.id.fromSpinner) {
@@ -129,6 +157,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    /**
+     * Updates 'to' text view after spinner and radio button selection and outputs final result
+     * @params: nothing
+     * @return: nothing
+     */
     private void updateToTextView() {
         EditText toTextView = (EditText) findViewById(R.id.toEditTextView);
         if (!fromTextViewText.isEmpty()) {

@@ -4,7 +4,17 @@ import android.util.Log;
 
 import java.text.DecimalFormat;
 
+/**
+ * Converter Class holds all the business logic of actual conversion
+ * @author: Aman Thakur
+ */
 public class Converter {
+
+    /**
+     * Provides actual converted value to show to the user with help of conversion type and switch cases
+     * @params: conversionType - Conversion type to segregate Metric enum cases, fromType - Selected 'From' enum value from spinner, toType - Selected 'To' enum value from other spinner, value - Actual value user has entered in 'From Edit Text View'
+     * @return: String value of converted input
+     */
     public String getConvertedValue(ConversionType conversionType, MetricType fromType, MetricType toType, String value) {
         double dValue = Double.valueOf(value);
         double convertedValue;
@@ -28,6 +38,11 @@ public class Converter {
         return new DecimalFormat("0.########").format(convertedValue);
     }
 
+    /**
+     * Provides converted value for only distance type conversion
+     * @params: fromType - Selected 'From' enum value from spinner, toType - Selected 'To' enum value from other spinner, value - Actual value user has entered in 'From Edit Text View'
+     * @return: Double value of converted input
+     */
     private double getConvertedDistance(MetricType fromType, MetricType toType, double value) {
         if (fromType == MetricType.Meter && toType == MetricType.Meter) {
             return value;
@@ -131,6 +146,11 @@ public class Converter {
         return 0;
     }
 
+    /**
+     * Provides converted value for only Temperature type conversion
+     * @params: fromType - Selected 'From' enum value from spinner, toType - Selected 'To' enum value from other spinner, value - Actual value user has entered in 'From Edit Text View'
+     * @return: Double value of converted input
+     */
     private double getConvertedTemperature(MetricType fromType, MetricType toType, double value) {
         if (fromType == MetricType.Celsius && toType == MetricType.Celsius) {
             return value;
@@ -154,6 +174,11 @@ public class Converter {
         return 0;
     }
 
+    /**
+     * Provides converted value for only Volume type conversion
+     * @params: fromType - Selected 'From' enum value from spinner, toType - Selected 'To' enum value from other spinner, value - Actual value user has entered in 'From Edit Text View'
+     * @return: Double value of converted input
+     */
     private double getConvertedVolume(MetricType fromType, MetricType toType, double value) {
         if (fromType == MetricType.Liter && toType == MetricType.Liter) {
             return value;
@@ -167,6 +192,11 @@ public class Converter {
         return 0;
     }
 
+    /**
+     * Provides converted value for only Weight type conversion
+     * @params: fromType - Selected 'From' enum value from spinner, toType - Selected 'To' enum value from other spinner, value - Actual value user has entered in 'From Edit Text View'
+     * @return: Double value of converted input
+     */
     private double getConvertedWeight(MetricType fromType, MetricType toType, double value) {
         if (fromType == MetricType.Kilogram && toType == MetricType.Kilogram) {
             return value;
