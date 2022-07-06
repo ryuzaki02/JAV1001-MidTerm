@@ -4,17 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum MetricType {
-    Meter("Meter", 0, ConversionType.Distance),
-    Centimeter("Centimeter", 1, ConversionType.Distance),
-    Millimeter("Millimeter", 2, ConversionType.Distance),
-    Mile("Mile", 3, ConversionType.Distance),
-    Foot("Foot", 4, ConversionType.Distance),
-    Inch("Inch", 5, ConversionType.Distance),
-    Kilometer("Kilometer", 6, ConversionType.Distance),
+    Meter("Meter", 0, ConversionType.Length),
+    Centimeter("Centimeter", 1, ConversionType.Length),
+    Millimeter("Millimeter", 2, ConversionType.Length),
+    Mile("Mile", 3, ConversionType.Length),
+    Foot("Foot", 4, ConversionType.Length),
+    Inch("Inch", 5, ConversionType.Length),
+    Kilometer("Kilometer", 6, ConversionType.Length),
 
     Celsius("Celsius", 7, ConversionType.Temperature),
     Fahrenheit("Fahrenheit", 8, ConversionType.Temperature),
-    Kelvin("Kelvin", 9, ConversionType.Temperature);
+    Kelvin("Kelvin", 9, ConversionType.Temperature),
+
+    Kilogram("Kilogram", 10, ConversionType.Weight),
+    Gram("Gram", 11, ConversionType.Weight),
+    Ounce("Ounce", 12, ConversionType.Weight),
+    Pound("Pound", 13, ConversionType.Weight),
+    Milligram("Milligram", 14, ConversionType.Weight),
+
+    Liter("Liter", 15, ConversionType.Volume),
+    Milliliter("Milliliter", 16, ConversionType.Volume);
 
     private String stringValue;
     private int intValue;
@@ -53,5 +62,18 @@ public enum MetricType {
             default:
                 return MetricType.Millimeter;
         }
+    }
+
+    public static MetricType[] getMetricValuesFor(ConversionType conversionType) {
+        List<MetricType> listValues = new ArrayList<MetricType>();
+        for (MetricType type:
+             MetricType.values()) {
+            if (type.typeValue == conversionType) {
+                listValues.add(type);
+            }
+        }
+        MetricType[] items = new MetricType[ listValues.size() ];
+        listValues.toArray( items );
+        return items;
     }
 }

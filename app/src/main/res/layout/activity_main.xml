@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Unit Converter"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,8 @@
         android:layout_height="40dp"
         android:paddingLeft="15dp"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:checkedButton="@id/lengthRadioButton"
         app:layout_constraintTop_toBottomOf="@id/headingTextView" >
 
         <RadioButton
@@ -57,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="From"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="@id/fromLinerLayout"
         app:layout_constraintTop_toBottomOf="@id/conversionTypeGroup" />
@@ -95,7 +96,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="To"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="@id/fromTextView"
         app:layout_constraintTop_toBottomOf="@id/fromLinerLayout" />
@@ -117,6 +118,7 @@
             android:background="@drawable/edit_text_border"
             android:layout_weight="0.5"
             android:paddingLeft="5dp"
+            android:editable="false"
             app:layout_constraintTop_toBottomOf="@id/fromTextView" />
 
         <Spinner

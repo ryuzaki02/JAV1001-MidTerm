@@ -7,7 +7,25 @@ import java.text.DecimalFormat;
 public class Converter {
     public String getConvertedValue(ConversionType conversionType, MetricType fromType, MetricType toType, String value) {
         double dValue = Double.valueOf(value);
-        return new DecimalFormat("0.########").format(getConvertedDistance(fromType, toType, dValue));
+        double convertedValue;
+        switch (conversionType) {
+            case Length:
+                convertedValue = getConvertedDistance(fromType, toType, dValue);
+                break;
+            case Volume:
+                convertedValue = getConvertedVolume(fromType, toType, dValue);
+                break;
+            case Weight:
+                convertedValue = getConvertedWeight(fromType, toType, dValue);
+                break;
+            case Temperature:
+                convertedValue = getConvertedTemperature(fromType, toType, dValue);
+                break;
+            default:
+                convertedValue = 0;
+                break;
+        }
+        return new DecimalFormat("0.########").format(convertedValue);
     }
 
     private double getConvertedDistance(MetricType fromType, MetricType toType, double value) {
@@ -110,6 +128,97 @@ public class Converter {
         } else if (fromType == MetricType.Inch && toType == MetricType.Centimeter) {
             return value * 2.54;
         }
-        return 0.0;
+        return 0;
+    }
+
+    private double getConvertedTemperature(MetricType fromType, MetricType toType, double value) {
+        if (fromType == MetricType.Celsius && toType == MetricType.Celsius) {
+            return value;
+        } else if (fromType == MetricType.Celsius && toType == MetricType.Kelvin) {
+            return value + 273.15;
+        } else if (fromType == MetricType.Celsius && toType == MetricType.Fahrenheit) {
+            return (value * 9/5) + 32;
+        } else if (fromType == MetricType.Fahrenheit && toType == MetricType.Fahrenheit) {
+            return value;
+        } else if (fromType == MetricType.Fahrenheit && toType == MetricType.Kelvin) {
+            return ((value - 32) * 5/9) + 273.15;
+        } else if (fromType == MetricType.Fahrenheit && toType == MetricType.Celsius) {
+            return ((value - 32) * 5/9);
+        } else if (fromType == MetricType.Kelvin && toType == MetricType.Kelvin) {
+            return value;
+        } else if (fromType == MetricType.Kelvin && toType == MetricType.Fahrenheit) {
+            return ((value - 273.15) * 9/5) + 32;
+        } else if (fromType == MetricType.Kelvin && toType == MetricType.Celsius) {
+            return value - 273.15;
+        }
+        return 0;
+    }
+
+    private double getConvertedVolume(MetricType fromType, MetricType toType, double value) {
+        if (fromType == MetricType.Liter && toType == MetricType.Liter) {
+            return value;
+        } else if (fromType == MetricType.Liter && toType == MetricType.Milliliter) {
+            return value * 1000;
+        } else if (fromType == MetricType.Milliliter && toType == MetricType.Milliliter) {
+            return value;
+        } else if (fromType == MetricType.Milliliter && toType == MetricType.Liter) {
+            return value * 0.001;
+        }
+        return 0;
+    }
+
+    private double getConvertedWeight(MetricType fromType, MetricType toType, double value) {
+        if (fromType == MetricType.Kilogram && toType == MetricType.Kilogram) {
+            return value;
+        } else if (fromType == MetricType.Kilogram && toType == MetricType.Gram) {
+            return value * 1000;
+        } else if (fromType == MetricType.Kilogram && toType == MetricType.Milligram) {
+            return value * 1000000;
+        } else if (fromType == MetricType.Kilogram && toType == MetricType.Ounce) {
+            return value * 35.27;
+        } else if (fromType == MetricType.Kilogram && toType == MetricType.Pound) {
+            return value * 2.205;
+        } else if (fromType == MetricType.Gram && toType == MetricType.Gram) {
+            return value;
+        } else if (fromType == MetricType.Gram && toType == MetricType.Kilogram) {
+            return value * 0.001;
+        } else if (fromType == MetricType.Gram && toType == MetricType.Milligram) {
+            return value * 1000;
+        } else if (fromType == MetricType.Gram && toType == MetricType.Ounce) {
+            return value * 0.0353;
+        } else if (fromType == MetricType.Gram && toType == MetricType.Pound) {
+            return value * 0.0022;
+        } else if (fromType == MetricType.Milligram && toType == MetricType.Milligram) {
+            return value;
+        } else if (fromType == MetricType.Milligram && toType == MetricType.Kilogram) {
+            return value * 0.000001;
+        } else if (fromType == MetricType.Milligram && toType == MetricType.Gram) {
+            return value * 0.001;
+        } else if (fromType == MetricType.Milligram && toType == MetricType.Ounce) {
+            return value * 0.0000353;
+        } else if (fromType == MetricType.Milligram && toType == MetricType.Pound) {
+            return value * 0.00000220;
+        } else if (fromType == MetricType.Ounce && toType == MetricType.Ounce) {
+            return value;
+        } else if (fromType == MetricType.Ounce && toType == MetricType.Kilogram) {
+            return value * 0.0283;
+        } else if (fromType == MetricType.Ounce && toType == MetricType.Gram) {
+            return value * 28.35;
+        } else if (fromType == MetricType.Ounce && toType == MetricType.Milligram) {
+            return value * 28349.5;
+        } else if (fromType == MetricType.Ounce && toType == MetricType.Pound) {
+            return value * 0.0625;
+        } else if (fromType == MetricType.Pound && toType == MetricType.Pound) {
+            return value;
+        } else if (fromType == MetricType.Pound && toType == MetricType.Kilogram) {
+            return value * 0.453;
+        } else if (fromType == MetricType.Pound && toType == MetricType.Gram) {
+            return value * 453.592;
+        } else if (fromType == MetricType.Pound && toType == MetricType.Milligram) {
+            return value * 453592;
+        } else if (fromType == MetricType.Pound && toType == MetricType.Ounce) {
+            return value * 16;
+        }
+        return 0;
     }
 }

@@ -10,14 +10,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    private ConversionType conversionType = ConversionType.Distance;
+    private ConversionType conversionType = ConversionType.Length;
     private Converter converter = new Converter();
-    private MetricType selectedFromType = MetricType.Meter;
-    private MetricType selectedToType = MetricType.Meter;
+    private MetricType selectedFromType;
+    private MetricType selectedToType;
     private String fromTextViewText = "";
 
     @Override
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         setupSpinner();
         setupFromTextView();
+        setupRadioGroup();
     }
 
     // Setup Elements
@@ -33,12 +35,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner fromSpinner = (Spinner) findViewById(R.id.fromSpinner);
         fromSpinner.setOnItemSelectedListener(this);
 
+        Spinner toSpinner = (Spinner) findViewById(R.id.toSpinner);
+        toSpinner.setOnItemSelectedListener(this);
+
+        updateSpinner(fromSpinner, toSpinner);
+    }
+
+    private void updateSpinner(Spinner fromSpinner, Spinner toSpinner) {
         ArrayAdapter fromArrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, MetricType.getAllValues(conversionType));
         fromArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         fromSpinner.setAdapter(fromArrayAdapter);
 
-        Spinner toSpinner = (Spinner) findViewById(R.id.toSpinner);
-        toSpinner.setOnItemSelectedListener(this);
 
         ArrayAdapter toArrayAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, MetricType.getAllValues(conversionType));
         toArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -65,12 +72,52 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         });
     }
 
+    private void setupRadioGroup() {
+        RadioGroup group = (RadioGroup) findViewById(R.id.conversionTypeGroup);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (radioGroup.getCheckedRadioButtonId()) {
+                    case R.id.lengthRadioButton:
+                        selectedFromType = MetricType.Meter;
+                        selectedToType = MetricType.Meter;
+                        conversionType = ConversionType.Length;
+                        break;
+                    case R.id.volumeRadioButton:
+                        selectedFromType = MetricType.Liter;
+                        selectedToType = MetricType.Liter;
+                        conversionType = ConversionType.Volume;
+                        break;
+                    case R.id.tempRadioButton:
+                        selectedFromType = MetricType.Celsius;
+                        selectedToType = MetricType.Celsius;
+                        conversionType = ConversionType.Temperature;
+                        break;
+                    case R.id.weightRadioButton:
+                        selectedFromType = MetricType.Kilogram;
+                        selectedToType = MetricType.Kilogram;
+                        conversionType = ConversionType.Weight;
+                        break;
+                }
+                updateSpinner(findViewById(R.id.fromSpinner), findViewById(R.id.toSpinner));
+                resetTextView();
+            }
+        });
+    }
+
+    private void resetTextView() {
+        EditText fromTextView = (EditText) findViewById(R.id.fromEditTextView);
+        EditText toTextView = (EditText) findViewById(R.id.toEditTextView);
+        fromTextView.setText("");
+        toTextView.setText("");
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
         if (arg0.getId() == R.id.fromSpinner) {
-            selectedFromType = MetricType.values()[position];
+            selectedFromType = MetricType.getMetricValuesFor(conversionType)[position];
         } else if (arg0.getId() == R.id.toSpinner) {
-            selectedToType = MetricType.values()[position];
+            selectedToType = MetricType.getMetricValuesFor(conversionType)[position];
         }
         if (selectedToType != null && selectedToType != null) {
             updateToTextView();
@@ -83,9 +130,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void updateToTextView() {
+        EditText toTextView = (EditText) findViewById(R.id.toEditTextView);
         if (!fromTextViewText.isEmpty()) {
-            EditText toTextView = (EditText) findViewById(R.id.toEditTextView);
             toTextView.setText(converter.getConvertedValue(conversionType, selectedFromType, selectedToType, fromTextViewText));
+        } else {
+            toTextView.setText("");
         }
     }
 }
